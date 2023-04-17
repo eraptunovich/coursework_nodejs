@@ -1,0 +1,13 @@
+<%- include ("../_layouts/adminheader") %>
+<h2 class="page-title">Редактирование категории товара</h2>
+<a href="/admin/categories" class="btn btn-primary">Назад ко всем страницам</a>
+<br><br>
+<form method="post" action="/admin/categories/edit-category/<%= id %>">
+	<div class="form-group">
+		<label for="">Введите название категории</label>
+		<input type="text" class="form-control" name="title" value="<%= title %>" placeholder="Введите ваш заголовок страницы...">
+	</div>
+
+	<button class="btn btn-default">Изменить</button>
+</form>
+<%- include ("../_layouts/adminfooter") %>

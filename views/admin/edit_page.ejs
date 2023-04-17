@@ -1,0 +1,23 @@
+<%- include ("../_layouts/adminheader") %>
+<h2 class="page-title">Редактирование страницы</h2>
+<a href="/admin/pages" class="btn btn-primary">Назад ко всем страницам</a>
+<br><br>
+<form method="post" action="/admin/pages/edit-page/<%= id %>">
+	<div class="form-group">
+		<label for="">Заголовок</label>
+		<input type="text" class="form-control" name="title" value="<%= title %>" placeholder="Введите ваш заголовок страницы...">
+	</div>
+
+	<div class="form-group">
+		<label for="">Описание</label>
+		<input type="text" class="form-control" name="slug" value="<%= slug %>" placeholder="Введите ваше описание страницы...">
+	</div>
+
+	<div class="form-group">
+		<label for="">Контент</label>
+		<textarea  name="content" class="form-control" id="ta" cols="30" rows="10" placeholder="Разместите здесь ваш контент..."><%= content %></textarea>
+	</div>
+
+	<button class="btn btn-default">Изменить</button>
+</form>
+<%- include ("../_layouts/adminfooter") %>

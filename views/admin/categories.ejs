@@ -1,0 +1,27 @@
+<%- include ("../_layouts/adminheader") %>
+<h2 class="page-title">Категории товаров</h2>
+<a href="/admin/categories/add-category" class="btn btn-primary">Добавить новую категорию</a>
+<br><br>
+
+<table class="table table-striped ">
+	<thead>
+		<tr>
+			<th>Категория</th>
+			<th>Описание</th>
+			<th>Контент</th>
+		</tr>
+	</thead>
+	<tbody>
+		<% categories.forEach(function(cat){%>
+			<tr>
+				<td><%= cat.title %></td>
+				<td><a href="/admin/categories/edit-category/<%= cat._id %>">Редактировать категорию</a></td>
+				<td><a class="confirmDeletion" href="/admin/categories/delete-category/<%= cat._id %>">Удалить категорию</a></td>
+			</tr>
+		<% }); %>
+	</tbody>
+</table>
+
+
+
+<%- include ("../_layouts/adminfooter") %>

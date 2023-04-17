@@ -1,0 +1,13 @@
+<%- include ("../_layouts/adminheader") %>
+<h2 class="page-title">Добавить новую категорию товаров</h2>
+<a href="/admin/categories" class="btn btn-primary">Назад ко всем категориям</a>
+<br><br>
+<form method="post" action="/admin/categories/add-category">
+	<div class="form-group">
+		<label for="">Категория товара</label>
+		<input type="text" class="form-control" name="title" value="<%= title %>" placeholder="Введите название категории">
+	</div>
+
+	<button class="btn btn-default">Добавить</button>
+</form>
+<%- include ("../_layouts/adminfooter") %>
