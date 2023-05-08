@@ -27,6 +27,33 @@ app.set('view engine', 'ejs');
 //глобальная переменная для хранения ошибок
 app.locals.errors=null;
 
+//get page model
+
+var Page = require('./models/page');
+
+//get all pages to pass to header.ejs
+Page.find({}).sort({sorting: 1}).exec(function(err, pages){
+	if(err){
+		console.log(err);
+	} else{
+		app.locals.pages = pages;
+	}
+});
+
+
+//get category model
+
+var Category = require('./models/category');
+
+//get all categories to pass to header.ejs
+Category.find(function(err, categories){
+	if(err){
+		console.log(err);
+	} else{
+		app.locals.categories = categories;
+	}
+});
+
 //установка публичных папок
 app.use(express.static(path.join(__dirname,'public' )));
 
