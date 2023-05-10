@@ -115,6 +115,7 @@ app.use(function (req, res, next) {
 });
 
 //set routes
+var products = require('./routes/products.js');
 var pages = require('./routes/pages.js');
 var adminPages = require('./routes/admin_pages.js');
 var adminCategories = require('./routes/admin_categories.js');
@@ -123,7 +124,9 @@ var adminProducts = require('./routes/admin_products.js');
 app.use('/admin/pages', adminPages);
 app.use('/admin/categories', adminCategories);
 app.use('/admin/products', adminProducts);
+app.use('/', products);
 app.use('/', pages);
+
 
 //запуск сервера
 var port=3000;
