@@ -5,12 +5,17 @@ var router = express.Router();
 var Page=require('../models/page');
 
 router.get('/', function(req, res){
+
+	var videoContent = true;
+
+
 	Page.findOne({slug: "home"}, function(err, page){
 		if(err) console.log(err);
 
 			res.render('index', {
 				title: page.title,
-				content: page.content
+				content: page.content,
+				videoContent: videoContent
 			});
 	});
 });

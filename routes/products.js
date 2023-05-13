@@ -6,8 +6,8 @@ var fs = require('fs-extra');
 var Product=require('../models/product');
 var Category=require('../models/category');
 
-router.get('/products', function(req, res){
-	console.log("Все товары");
+router.get('/', function(req, res){
+	//console.log("Все товары");
 	Product.find(function(err, products){
 		if(err) console.log("Ошибка"+err);
 
@@ -19,7 +19,7 @@ router.get('/products', function(req, res){
 });
 
 
-router.get('/products/:category', function(req, res){
+router.get('/:category', function(req, res){
 
 	var categorySlug=req.params.category;
 	console.log("Категории");
@@ -37,7 +37,7 @@ router.get('/products/:category', function(req, res){
 	
 });
 
-router.get('/products/:category/:product', function(req, res){
+router.get('/:category/:product', function(req, res){
 
 	var galleryImages=null;
 
@@ -62,5 +62,22 @@ router.get('/products/:category/:product', function(req, res){
 		}
 	});
 });
+
+router.post('/search', (req, res) => {
+	
+	const searchTerm = req.body.search.toLowerCase();
+	//console.log(searchTerm);
+	// Обработка запроса поиска
+
+	Product.find({slug: searchTerm}, function(err, products){
+		if(err) console.log("Ошибка"+err);
+
+			res.render('all_products', {
+				title: "Все товары",
+				products: products
+			});
+	});
+
+  });
 
 module.exports=router;

@@ -13,4 +13,13 @@ $(function () {
         $("[data-fancybox]").fancybox();
     }
 
+	$(document).ready(function() {
+		$('.block .toggle').click(function(e) {
+		  e.preventDefault();
+		  $(this).parent().find('.content').slideToggle();
+		});
+	});
+
+	
+
 });
