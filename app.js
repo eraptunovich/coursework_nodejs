@@ -6,8 +6,8 @@ var bodyParser = require('body-parser');
 var session = require('express-session');
 var expressValidator = require('express-validator');
 var fileUpload = require('express-fileupload');
-
-
+const passport = require('passport');
+require('./config/passport')(passport);
 
 //подключение к базе данных
 mongoose.connect(config.database);
@@ -114,14 +114,23 @@ app.use(function (req, res, next) {
   next();
 });
 
+
+app.use(express.urlencoded({ extended: false }));
+app.use(passport.initialize());
+app.use(passport.session());
+
+
+
 app.get('*', function(req, res, next){
 	res.locals.cart = req.session.cart;
+	res.locals.user = req.user || null;
 	next();
 });
 
 //set routes
 var products = require('./routes/products.js');
 var cart = require('./routes/cart.js');
+var users = require('./routes/users.js');
 var pages = require('./routes/pages.js');
 var adminPages = require('./routes/admin_pages.js');
 var adminCategories = require('./routes/admin_categories.js');
@@ -132,6 +141,7 @@ app.use('/admin/categories', adminCategories);
 app.use('/admin/products', adminProducts);
 app.use('/products', products);
 app.use('/cart', cart);
+app.use('/users', users);
 app.use('/', pages);
 
 

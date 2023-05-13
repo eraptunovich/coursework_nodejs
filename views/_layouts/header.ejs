@@ -19,7 +19,7 @@ src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js">
   </head>
 
   <body>
-	
+
 	<div class="ajaxbg">
 		<div class="ajaxinner">
 			<h3>Подождите, сейчас вы будутет перенаправлены на страницу оплаты...</h3>
@@ -49,15 +49,7 @@ src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js">
 			<% }); %>
           </ul>
 		  <ul class="nav navbar-nav navbar-right">
-            <li>
-				<a href="/cart/checkout">Моя корзина(
-					<% if (typeof cart !== "undefined") { %>
-						<%= cart.length %>	
-					<% } else { %>
-					0
-					<% } %>
-					)</a>
-			</li>
+            
 			<li>
 				<form method="post" action="/products/search" class="mt-3 mb-3">
 					<div class="input-group">
@@ -68,6 +60,22 @@ src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js">
 					</div>
 				</form>
 			</li>
+			<li>
+				<a href="/cart/checkout">Моя корзина(
+					<% if (typeof cart !== "undefined") { %>
+						<%= cart.length %>	
+					<% } else { %>
+					0
+					<% } %>
+					)</a>
+			</li>
+			<li>
+				<a href="users/register">Регистрация</a>
+			</li>
+			<li>
+				<a href="users/login">Вход</a>
+			</li>
+
 			
 		
 			
