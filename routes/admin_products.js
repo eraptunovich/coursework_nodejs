@@ -4,13 +4,15 @@ var router = express.Router();
 var mkdirp = require('mkdirp');
 var fs = require('fs-extra');
 var resizeImg = require('resize-img');
+var auth = require('./config/auth');
+var isAdmin = auth.isAdmin;
 
 //get page model
 var Product=require('../models/product');
 var Category=require('../models/category');
 //get product index
 
-router.get('/', function (req, res) {
+router.get('/', isAdmin, function (req, res) {
    var count;
 
    Product.count(function(err, c){
@@ -27,7 +29,7 @@ router.get('/', function (req, res) {
 
 //get add product
 
-router.get('/add-product', function(req, res){
+router.get('/add-product', isAdmin, function(req, res){
 	var title="";
 	var desc="";
 	var price="";
@@ -44,7 +46,7 @@ router.get('/add-product', function(req, res){
 
 //post add product
 
-router.post('/add-product', function(req, res){
+router.post('/add-product',  function(req, res){
 
 	if(!req.files){ imageFile =""; }
     if(req.files){
@@ -131,7 +133,7 @@ router.post('/add-product', function(req, res){
 });
 
 
-router.get('/edit-product/:id', function(req, res){
+router.get('/edit-product/:id', isAdmin, function(req, res){
 	var errors;
 	if(req.session.errors) errors = req.session.errors;
 	req.session.errors=null;
@@ -264,7 +266,7 @@ router.post('/product-gallery/:id', function (req, res) {
 
 //get delete image
 
-router.get('/delete-image/:image', function (req, res) {
+router.get('/delete-image/:image', isAdmin, function (req, res) {
 	var originalImage = "public/product_images/"+req.query.id+"/gallery/"+req.params.image;
 	var thumbImage = "public/product_images/"+req.query.id+"/gallery/thumbs/"+req.params.image;
 
@@ -286,7 +288,7 @@ router.get('/delete-image/:image', function (req, res) {
 
 //get delete category
 
-router.get('/delete-category/:id', function (req, res) {
+router.get('/delete-category/:id', isAdmin, function (req, res) {
     Page.findByIdAndRemove(req.params.id, function(err){
 		if(err) console.log(err);
 		req.flash('success', 'Категория была успешно удалена!');
@@ -296,7 +298,7 @@ router.get('/delete-category/:id', function (req, res) {
 
 //get delete product
 
-router.get('/delete-product/:id', function (req, res) {
+router.get('/delete-product/:id', isAdmin, function (req, res) {
     var id = req.params.id;
 	var path = "public/product_images/"+id;
 

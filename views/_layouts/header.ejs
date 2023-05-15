@@ -44,22 +44,13 @@ src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js">
 				<% if(page.slug=="home") { %>
 					<li><a href="/"><%= page.title %></a></li>
 				<% } else { %>
-					<li><a href="<%= page.slug %>"><%= page.title %></a></li>
+					<li><a href="/<%= page.slug %>"><%= page.title %></a></li>
 				<% } %>
 			<% }); %>
           </ul>
 		  <ul class="nav navbar-nav navbar-right">
             
-			<li>
-				<form method="post" action="/products/search" class="mt-3 mb-3">
-					<div class="input-group">
-					  <input type="text" class="form-control" placeholder="Поиск..." name="search">
-					  <div class="input-group-append">
-						<button class="btn btn-primary" type="submit">Найти</button>
-					  </div>
-					</div>
-				</form>
-			</li>
+			
 			<li>
 				<a href="/cart/checkout">Моя корзина(
 					<% if (typeof cart !== "undefined") { %>
@@ -69,11 +60,33 @@ src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js">
 					<% } %>
 					)</a>
 			</li>
+			<% if(user){ %>
+				<li>
+					<a href="users/logout">Hi, <%= user.username %> (Выйти)</a>
+				</li>
+			<% } else { %>
+				<li>
+					<a href="users/register">Регистрация</a>
+				</li>
+				<li>
+					<a href="users/login">Вход</a>
+				</li>
+			<% } %>
+			<% if(user && user.admin == 1){ %>
+				<li>
+					<a href="admin/pages">Зона администратора</a>
+				</li>
+			<% } %>
+			
 			<li>
-				<a href="users/register">Регистрация</a>
-			</li>
-			<li>
-				<a href="users/login">Вход</a>
+				<form method="post" action="/products/search" class="mt-3 mb-3">
+					<div class="input-group">
+					  <input type="text" class="form-control" id="search-input" placeholder="Поиск..." name="search">
+					  <div class="input-group-append">
+						<button class="btn btn-primary" id="search-button" type="submit">Найти</button>
+					  </div>
+					</div>
+				</form>
 			</li>
 
 			
@@ -103,6 +116,14 @@ src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js">
 	
     <div class="container">
 		<%- messages('messages', locals) %>
+
+		<% if (errors) {%>
+			<% errors.forEach(function(error) {%>
+				<div class="alert alert-danger">
+					<%= error.msg %>
+				</div>
+			<% });%>
+		<% }%>
 
 		<div class="row">
 			<div class="col-xs-12 col-md-3">

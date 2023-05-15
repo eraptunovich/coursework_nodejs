@@ -1,13 +1,15 @@
 var express = require('express');
 const { findById } = require('../models/page');
 var router = express.Router();
+var auth = require('./config/auth');
+var isAdmin = auth.isAdmin;
 
 //get page model
 var Page=require('../models/page');
 
 //get pages index
 
-router.get('/', function (req, res) {
+router.get('/', isAdmin, function (req, res) {
     Page.find({}).sort({sorting: 1}).exec(function (err, pages) {
         res.render('admin/pages', {
             pages: pages
@@ -18,7 +20,7 @@ router.get('/', function (req, res) {
 
 //get add page
 
-router.get('/add-page', function(req, res){
+router.get('/add-page', isAdmin, function(req, res){
 	var title="";
 	var slug="";
 	var content="";
@@ -128,7 +130,7 @@ router.post('/reorder-pages', function (req, res) {
 
 });
 
-router.get('/edit-page/:id', function(req, res){
+router.get('/edit-page/:id', isAdmin, function(req, res){
 	Page.findById(req.params.id, function(err, page){
 		if(err) return console.log(err);
 
@@ -206,7 +208,7 @@ router.post('/edit-page/:id', function(req, res){
 
 //get delete page
 
-router.get('/delete-page/:id', function (req, res) {
+router.get('/delete-page/:id', isAdmin, function (req, res) {
     Page.findByIdAndRemove(req.params.id, function(err){
 		if(err)console.log(err);
 

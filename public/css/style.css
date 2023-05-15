@@ -86,4 +86,23 @@ ul.gallery li{
 	text-align: center;
 }
 
+#search-input{
+	border: 2px white;
+	border: 2px solid grey;
+	border-radius: 0px;
+	opacity: 0.4;
+	background-color: black;
+}
+#search-button{
+	background-color: black;
+	border: 1px solid grey;
+	border-radius: 0px;
+	height: 34px;
+	color: grey;
+}
 
+.alert-error{
+	color: "a94442";
+	background-color: "f2dede";
+	border-color:"ebccd1";
+}

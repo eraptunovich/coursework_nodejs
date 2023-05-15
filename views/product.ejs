@@ -9,7 +9,12 @@
 	<div class="col-xs-12 col-md-7">
 		<p><%- p.desc %></p>
 		<p>$<%= parseFloat(p.price).toFixed(2) %></p>
-		<p><a href="/cart/add/<%= p.slug %>">Добавить товар в корзину</a></p>
+		<% if(loggedIn) { %>
+			<p><a href="/cart/add/<%= p.slug %>">Добавить товар в корзину</a></p>
+		<% } else {%>
+			<p>Войдите или зарегистрируйтесь для добавления товаров в корзину</p>
+		<% } %>
+		
 	</div>
 	<div class="col-xs-12">
 		<ul class="gallery" >
